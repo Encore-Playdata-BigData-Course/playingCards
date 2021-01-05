@@ -35,10 +35,9 @@
 
         function pickCard(){
             let cardIndex = parseInt(Math.random()*tempCardList.length);
+            let cardName = tempCardList[cardIndex];
             tempCardList.splice(cardIndex,1);
             console.log(tempCardList.length);
-            let cardName = tempCardList[cardIndex];
-            delete tempCardList[cardIndex];
             document.getElementById("card").innerHTML += '<img src=52_cards/'+ cardName.filename +' alt="" style="float: left; width: 10%">';
             return cardName.score;
         }
