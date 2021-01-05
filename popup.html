@@ -16,16 +16,16 @@ body { margin-left: 0px; margin-top: 0px; margin-right: 0px; margin-bottom: 0px;
 <div class="popup_content">  </div>
 <div class="popup_bottom"> <span>
     <label for="event"><input type='checkbox' id='event' name='event' onClick="closeWin('popup_74')" />       오늘하루보지않기</label>
-    </span> <a href="" onClick="closeWin('popup_74')" /> 닫기</a> </div>
+    </span> <a href="" onClick="closeWin('popup_74')"> 닫기</a> </div>
 <script language="JavaScript">
-	<!--
-		let p_name = "popup_74";
-		function closeWin() {
-			if (document.getElementById("event").checked) {
-				parent.setCookie(p_name, 'no' , 1);
-			}
-			parent.__popup.setClose(p_name);
-		}
+	// <!--
+	let pname = "popup_74";
+	function closeWin() {
+	    if (document.getElementById("event").checked) {
+	        parent.setCookie(pname, 'no' , 1);
+	    }
+	    parent.__popup.setClose(pname);
+	}
 	// -->
     </script>
  </body>
