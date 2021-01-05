@@ -8,7 +8,10 @@
 <body>
     <div id="card">
     </div>
-
+    <div>
+        <button id="pickCard" onclick="pickCard()"> 카드 뽑기</button>
+        <button id = "gameover" onclick="gameover()">STOP</button>
+    </div>
 
     <script>
         const filelist = [
@@ -37,9 +40,17 @@
         // 게임 진행 새로운 카드를 뽑는 
         // 게임 종료는 초기화
         // 카드를 초기화 하고 점수값을 리턴, 사진은 계속 옆으로 붙히자
+
+
+
+        //document.getElementById("gameover").addEventListener("click",gameover);
+        function gameover(){
+            result();
+            document.getElementById("card").innerHTML = "";
+            playerscore = 0;
+            dealerscore = 0;
+        }
     </script>
-        <div>
-            <button id="pickCard" onclick="pickCard()"> 카드 뽑기</button>
-        </div>
+        
 </body>
 </html>
