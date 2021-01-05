@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body style="background-image: url('imgs/board.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
+<body onload="doPopupopen();"
+    style="background-image: url('imgs/board.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
     <div style="margin-top: 20%; color: azure;"> 
         <button id="pickCard" onclick="addscore()">Hit!</button>
         <button id="getResult" onclick="getResult()">Stand</button>
@@ -100,7 +101,7 @@
         function bustedDetector(){
             if(dealerscore > 21 && playerscore > 21){
                 detector = false;
-                return "무승부! 둘다 파산";
+                return "유저 패배! 둘다 파산";
             } else if (dealerscore > 21 && playerscore <= 21) {
                 detector = false;
                 return "유저 승리! 딜러 파산";
@@ -156,6 +157,11 @@
             //딜러 카드 다시 앞면으로 가져오는 로직
         }
     </script>
+    <script type="text/javascript">
+        function doPopupopen() {
+           window. open("sh.html", "popup01", "width=450, height=700");
+        }
+        </script>
 </body>
     <div id="result" style="margin-top: 50%; color: azure;">
     </div>
