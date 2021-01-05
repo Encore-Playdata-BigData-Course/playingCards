@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    body {height: auto; width: 100vw; max-width: 1080px; margin: 0 auto;} 
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body /*onload="doPopupopen();"*/
-    style="height: 100%; width: 100%;; background-image: url('imgs/board.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
+    style="background-image: url('imgs/board.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
     <div style="margin-top: 20%; color: azure;"> 
         <button id="pickCard" onclick="addscore()">Hit!</button>
         <button id="getResult" onclick="getResult()">Stand</button>
         <button id = "gameover" onclick="gameover(true)">Continue</button>
         <button id = "gameover" onclick="gameover(false)">Game End</button>
     </div>
-
     <div id="dealerCard">
     </div>
     <div id="card">
@@ -162,16 +164,14 @@
            window. open("sh.html", "popup01", "width=450, height=700");
         }
         </script>
-</body>
     <div id="result" style="margin-top: 50%; color: azure;">
     </div>
-<footer>
-    <div>
+    <div style="scroll-margin-bottom: ;">
         <center>
             <img src="imgs/175.gif" alt="">
         </center>
     </div>
-</footer>
+</body>
 </html>
 
 <!-- 3. 종합점수 계산(승수 쌓인거라던지) -->
