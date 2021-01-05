@@ -10,7 +10,15 @@
 </head>
 <body 
     style="background-image: url('imgs/board.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
-    <div style="margin-top: 20%; color: azure;"> 
+    <div style="scroll-margin-top: 0;">
+        <center>
+            <img src="imgs/hi.gif" alt="" width="350" height="100">
+            <img src="imgs/hi.gif" alt="" width="350" height="100">
+            <img src="imgs/hi.gif" alt="" width="350" height="100">
+        </center>
+    </div>
+    
+    <div style="margin-top: 5%; color: azure;"> 
         <button id="pickCard" onclick="addscore()">Hit!</button>
         <button id="getResult" onclick="getResult()">Stand</button>
         <button id = "gameover" onclick="gameover(true)">Continue</button>
@@ -75,7 +83,7 @@
             if(!detector){
                 document.getElementById("card").innerHTML = "";
                 document.getElementById("dealerCard").innerHTML = "";
-                document.getElementById("result").innerHTML = "";
+                document.getElementById("result").innerHTML = "<div>&emsp;</div>";
                 if(!bool){
                     playermoney = 10000;
                     tempCardList = filelist.map((v)=>{return v;});
@@ -160,24 +168,15 @@
         }
     </script>
    
-    <div id="result" style="margin-top: 50%; color: azure;">
+    <div id="result" style="margin-top: 50%; color: azure;"> &emsp;
     </div>
-    <div style="scroll-margin-bottom: ;">
+    <div style="margin-top: 10%;">
         <center>
             <img src="imgs/175.gif" alt="">
             <img src="imgs/175.gif" alt="">
             <img src="imgs/175.gif" alt="">
         </center>
     </div>
-
-    <div style="scroll-margin-top: ;">
-        <center>
-            <img src="imgs/hi.gif" alt="" >
-            <img src="imgs/hi.gif" alt="">
-            <img src="imgs/hi.gif" alt="">
-        </center>
-    </div>
-
 </body>
 </html>
 
