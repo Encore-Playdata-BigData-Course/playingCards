@@ -11,13 +11,14 @@
     <div id="card">
     </div>
     <div>
-        <button id="pickCard" onclick="pickCard()"> 카드 뽑기</button>
-        <button id = "gameover" onclick="gameover()">STOP</button>
+        <button id="pickCard" onclick="addscore()"> 카드 뽑기</button>
+        <button id="getResult" onclick="getResult()"> 결과 보기(이판 종료)</button>
+        <button id = "gameover" onclick="gameover()">게임 초기화</button>
     </div>
 
     <script>
-        let playerscore = 0;
         let dealerscore = 0;
+        let playerscore = 0;
         let filelist = [
             {"filename" : "2C.png", "score":"2"}, {"filename" : "3C.png", "score":"3"}, {"filename" : "4C.png", "score":"4"}, {"filename" : "5C.png", "score":"5"}, {"filename" : "6C.png", "score":"6"},
             {"filename" : "7C.png", "score":"7"}, {"filename" : "8C.png", "score":"8"}, {"filename" : "9C.png", "score":"9"}, {"filename" : "10C.png", "score":"10"}, {"filename" : "AC.png", "score":"1"},
@@ -33,54 +34,72 @@
             {"filename" : "KS.png", "score":"10"}, {"filename" : "QS.png", "score":"10"}, {"filename" : "JS.png", "score":"10"}
         ];
 
+
+
+
+
+        //-----------------------------------------카드 뽑기-----------------------------------------
         var tempCardList = filelist.map((v)=>{return v;});
 
         function pickCard(){
             let cardIndex = parseInt(Math.random()*tempCardList.length);
             let cardName = tempCardList[cardIndex];
             tempCardList.splice(cardIndex, 1);
-
+            console.log("player : ", cardName.filename);
+            document.getElementById("card").innerHTML += '<img src=52_cards/'+ cardName.filename +' alt="" style="float: left; width: 10%">';
+            
             let dealerCardIndex = parseInt(Math.random()*tempCardList.length);
             let dealerCardName = tempCardList[dealerCardIndex];
-            tempCardList.splice(dealerCardName, 1);
-
-            console.log(tempCardList.length);
-            
-            document.getElementById("card").innerHTML += '<img src=52_cards/'+ cardName.filename +' alt="" style="float: left; width: 10%">';
+            tempCardList.splice(dealerCardIndex, 1);
+            console.log("dealer : ", dealerCardName.filename);
             document.getElementById("dealerCard").innerHTML += '<img src=52_cards/'+ dealerCardName.filename +' alt="" style="float: right; width: 10%">';
-
-
-            return cardName.score;
+            
+            return {"userScore" : cardName.score, "dealerScore" : dealerCardName.score};
         }
 
+
         let score = 0;
-        
-        // if (score > ) {
-            
-        // } else {
-            
-        // }
 
-        // 게임 진행 새로운 카드를 뽑는 
-        // 게임 종료는 초기화
-        // 카드를 초기화 하고 점수값을 리턴, 사진은 계속 옆으로 붙히자
-
-
-
+        //-----------------------------------------게임 오버-----------------------------------------
         //document.getElementById("gameover").addEventListener("click",gameover);
         function gameover(){
-            result();
+            // result();
             document.getElementById("card").innerHTML = "";
             document.getElementById("dealerCard").innerHTML = "";
+            document.getElementById("result").innerHTML = "";
             tempCardList = filelist.map((v)=>{return v;});
             playerscore = 0;
             dealerscore = 0;
         }
 
-        function result(){
+        //-----------------------------------------score 합치기-----------------------------------------
+        function addscore(){
+            let oneTime = pickCard();
+            dealerscore += parseInt(oneTime.dealerScore);
+            playerscore += parseInt(oneTime.userScore);
 
+            if(dealerscore > 21 && playerscore > 21){
+                console.log(dealerscore);
+                busted("무승부!");
+            } else if (dealerscore > 21 && playerscore <= 21) {
+                busted("유저 승리!");
+            } else if (dealerscore <= 21 && playerscore > 21) {
+                busted("딜러 승리!");
+            }
+        }
+
+        //-----------------------------------------어느 한쪽이라도 버스티드면 이리로 보냄-----------------------------------------
+        function busted(result){
+            document.getElementById("result").innerText = result;
+        }
+
+        //-----------------------------------------결과 계산-----------------------------------------
+        function getResult(){
+            document.getElementById("result").innerText = " 딜러 : " + dealerscore;
+            document.getElementById("result").innerText += " 플레이어 : " + playerscore;
         }
     </script>
-        
 </body>
+    <div id="result" style="margin-top: 50%;">
+    </div>
 </html>
