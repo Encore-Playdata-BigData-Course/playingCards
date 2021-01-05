@@ -6,6 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <button id = "gameover">STOP</button>
+    <script>
+        document.getElementById("gameover").addEventListener("click",gameover);
+        function gameover(){
+            result();
+            document.getElementById("card").innerHTML = "";
+            playerscore = 0;
+            dealerscore = 0;
+        }
+    </script>
 </body>
 </html>
