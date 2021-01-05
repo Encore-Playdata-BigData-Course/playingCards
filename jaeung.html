@@ -49,7 +49,7 @@
             let dealerCardName = tempCardList[dealerCardIndex];
             tempCardList.splice(dealerCardIndex, 1);
             console.log("dealer : ", dealerCardName.filename);
-            document.getElementById("dealerCard").innerHTML += '<img src=52_cards/'+ dealerCardName.filename +' alt="" style="float: right; width: 10%">';
+            document.getElementById("dealerCard").innerHTML += '<img src=52_cards/'+ "red_back.png" +' alt="" style="float: right; width: 10%">';
             return dealerCardName.score
         }
 
@@ -92,6 +92,11 @@
             dealerscore += parseInt(oneTime.dealerScore);
             playerscore += parseInt(oneTime.userScore);
 
+            bustedDetector();
+        }
+
+        //-----------------------------------------어느 한쪽이라도 버스티드면 이리로 보냄-----------------------------------------
+        function bustedDetector(){
             if(dealerscore > 21 && playerscore > 21){
                 console.log(dealerscore);
                 busted("무승부! 둘다 파산");
@@ -102,28 +107,26 @@
             }
         }
 
-        //-----------------------------------------어느 한쪽이라도 버스티드면 이리로 보냄-----------------------------------------
         function busted(result){
-            
             document.getElementById("result").innerText += result;
             detector = false;
         }
 
+        //-----------------------------------------딜러가 17이 안될경우 계속 가야하는 로직-----------------------------------------
+        function additionalDealer(){
+            while (dealerscore < 17){
+                dealerscore += parseInt(dealerPickCard());
+            }
+        }
+
+
         //-----------------------------------------결과 계산-----------------------------------------
         function getResult(){
+            additionalDealer();
+            document.getElementById("result").innerHTML = " 딜러 : " + dealerscore;
+            document.getElementById("result").innerHTML += " 플레이어 : " + playerscore +"<br>";
+            bustedDetector();
             if (detector) {
-                document.getElementById("result").innerHTML = " 딜러 : " + dealerscore;
-                document.getElementById("result").innerHTML += " 플레이어 : " + playerscore +"<br>";
-
-                if (dealerscore < 17){
-                    dealerscore += parseInt(dealerPickCard());
-                    if (dealerscore > 21 && playerscore <= 21){
-                        busted("유저 승리! 딜러 파산");
-                    }
-                }
-
-
-
                 if (dealerscore> playerscore) {
                     document.getElementById("result").innerText += " 딜러 승리 ";
                 } else if (playerscore> dealerscore){
@@ -133,6 +136,8 @@
                 }
                 detector = false;
             }
+
+            //딜러 카드 다시 앞면으로 가져오는 로직
         }
     </script>
 </body>
@@ -140,6 +145,4 @@
     </div>
 </html>
 
-<!-- 1. 점수가 다 안차면 딜러 카드 더 뽑기
-      2. 딜러 사진은 안보이는걸로
-    3. 종합점수 계산(승수 쌓인거라던지) -->
+<!-- 3. 종합점수 계산(승수 쌓인거라던지) -->
