@@ -7,10 +7,10 @@
 </head>
 <body style="background-image: url('imgs/board.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
     <div style="margin-top: 20%; color: azure;"> 
-        <button id="pickCard" onclick="addscore()"> 카드 뽑기</button>
-        <button id="getResult" onclick="getResult()"> 결과 보기(이판 종료)</button>
-        <button id = "gameover" onclick="gameover(true)">게임 계속진행</button>
-        <button id = "gameover" onclick="gameover(false)">게임 초기화</button>
+        <button id="pickCard" onclick="addscore()">Hit!</button>
+        <button id="getResult" onclick="getResult()">Stand</button>
+        <button id = "gameover" onclick="gameover(true)">Continue</button>
+        <button id = "gameover" onclick="gameover(false)">Game End</button>
     </div>
 
     <div id="dealerCard">
@@ -74,16 +74,18 @@
         //-----------------------------------------게임 오버-----------------------------------------
         //document.getElementById("gameover").addEventListener("click",gameover);
         function gameover(bool){
-            document.getElementById("card").innerHTML = "";
-            document.getElementById("dealerCard").innerHTML = "";
-            document.getElementById("result").innerHTML = "";
-            if(!bool){
-                playermoney = 0;
-                tempCardList = filelist.map((v)=>{return v;});
+            if(!detector){
+                document.getElementById("card").innerHTML = "";
+                document.getElementById("dealerCard").innerHTML = "";
+                document.getElementById("result").innerHTML = "";
+                if(!bool){
+                    playermoney = 0;
+                    tempCardList = filelist.map((v)=>{return v;});
+                }
+                playerscore = 0;
+                dealerscore = 0;
+                detector = true;
             }
-            playerscore = 0;
-            dealerscore = 0;
-            detector = true;
         }
 
         //-----------------------------------------score 합치기-----------------------------------------
