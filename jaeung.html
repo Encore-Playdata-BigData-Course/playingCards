@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <div id="dealerCard">
-    </div>
-    <div id="card">
-    </div>
-    <div>
+<body style="background-image: url('imgs/board.jpg'); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;">
+    <div style="margin-top: 20%; color: azure;"> 
         <button id="pickCard" onclick="addscore()"> 카드 뽑기</button>
         <button id="getResult" onclick="getResult()"> 결과 보기(이판 종료)</button>
         <button id = "gameover" onclick="gameover(true)">게임 계속진행</button>
         <button id = "gameover" onclick="gameover(false)">게임 초기화</button>
     </div>
 
+    <div id="dealerCard">
+    </div>
+    <div id="card">
+    </div>
     <script>
         let playermoney = 0;
         let detector = true;
@@ -44,21 +44,28 @@
         //-----------------------------------------카드 뽑기-----------------------------------------
         var tempCardList = filelist.map((v)=>{return v;});
 
+        function dealerPickCard() {
+            let dealerCardIndex = parseInt(Math.random()*tempCardList.length);
+            let dealerCardName = tempCardList[dealerCardIndex];
+            tempCardList.splice(dealerCardIndex, 1);
+            console.log("dealer : ", dealerCardName.filename);
+            document.getElementById("dealerCard").innerHTML += '<img src=52_cards/'+ dealerCardName.filename +' alt="" style="float: right; width: 10%">';
+            return dealerCardName.score
+        }
+
+        function playerPickCard() {
+            let cardIndex = parseInt(Math.random()*tempCardList.length);
+            let cardName = tempCardList[cardIndex];
+            tempCardList.splice(cardIndex, 1);
+            console.log("player : ", cardName.filename);
+            document.getElementById("card").innerHTML += '<img src=52_cards/'+ cardName.filename +' alt="" style="float: left; width: 10%">';
+
+            return cardName.score
+        }
+
         function pickCard(){
             if (detector){
-                let cardIndex = parseInt(Math.random()*tempCardList.length);
-                let cardName = tempCardList[cardIndex];
-                tempCardList.splice(cardIndex, 1);
-                console.log("player : ", cardName.filename);
-                document.getElementById("card").innerHTML += '<img src=52_cards/'+ cardName.filename +' alt="" style="float: left; width: 10%">';
-                
-                let dealerCardIndex = parseInt(Math.random()*tempCardList.length);
-                let dealerCardName = tempCardList[dealerCardIndex];
-                tempCardList.splice(dealerCardIndex, 1);
-                console.log("dealer : ", dealerCardName.filename);
-                document.getElementById("dealerCard").innerHTML += '<img src=52_cards/'+ dealerCardName.filename +' alt="" style="float: right; width: 10%">';
-                
-                return {"userScore" : cardName.score, "dealerScore" : dealerCardName.score};
+                return {"userScore" : playerPickCard(), "dealerScore" : dealerPickCard()};
             }
         }
 
@@ -70,9 +77,9 @@
             document.getElementById("card").innerHTML = "";
             document.getElementById("dealerCard").innerHTML = "";
             document.getElementById("result").innerHTML = "";
-            tempCardList = filelist.map((v)=>{return v;});
             if(!bool){
                 playermoney = 0;
+                tempCardList = filelist.map((v)=>{return v;});
             }
             playerscore = 0;
             dealerscore = 0;
@@ -97,26 +104,39 @@
 
         //-----------------------------------------어느 한쪽이라도 버스티드면 이리로 보냄-----------------------------------------
         function busted(result){
+            
             document.getElementById("result").innerText += result;
+            detector = false;
         }
 
         //-----------------------------------------결과 계산-----------------------------------------
         function getResult(){
-            document.getElementById("result").innerText = " 딜러 : " + dealerscore;
-            document.getElementById("result").innerText += " 플레이어 : " + playerscore;
+            if (detector) {
+                document.getElementById("result").innerHTML = " 딜러 : " + dealerscore;
+                document.getElementById("result").innerHTML += " 플레이어 : " + playerscore +"<br>";
 
-            if (dealerscore> playerscore) {
-                document.getElementById("result").innerText += " 딜러 승리 ";
-            } else if (playerscore> dealerscore){
-                document.getElementById("result").innerText +=  " 유저 승리 ";
-            } else {
-                document.getElementById("result").innerText += " 무승부 ";
+                if (dealerscore < 17){
+                    dealerscore += parseInt(dealerPickCard());
+                    if (dealerscore > 21 && playerscore <= 21){
+                        busted("유저 승리! 딜러 파산");
+                    }
+                }
+
+
+
+                if (dealerscore> playerscore) {
+                    document.getElementById("result").innerText += " 딜러 승리 ";
+                } else if (playerscore> dealerscore){
+                    document.getElementById("result").innerText +=  " 유저 승리 ";
+                } else {
+                    document.getElementById("result").innerText += " 무승부 ";
+                }
+                detector = false;
             }
-            detector = false;
         }
     </script>
 </body>
-    <div id="result" style="margin-top: 50%;">
+    <div id="result" style="margin-top: 50%; color: azure;">
     </div>
 </html>
 
