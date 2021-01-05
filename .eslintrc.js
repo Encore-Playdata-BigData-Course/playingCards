@@ -71,6 +71,6 @@ module.exports = {
         "indent": 1
     },
     "plugins": [
-        "eslint-plugin-html",
+        "eslint-plugin-html"
     ]
 };
