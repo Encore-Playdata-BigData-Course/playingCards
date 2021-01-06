@@ -73,6 +73,9 @@
 
         function pickCard(){
             if (detector){
+                if (tempCardList.length < 2) {
+                    tempCardList = filelist.map((v)=>{return v;});
+                }
                 return {"userScore" : playerPickCard(), "dealerScore" : dealerPickCard()};
             }
         }
