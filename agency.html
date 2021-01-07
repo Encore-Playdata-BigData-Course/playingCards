@@ -50,9 +50,12 @@
         ];
 
         //-----------------------------------------카드 뽑기-----------------------------------------
-        var tempCardList = filelist.map((v)=>{return v;});
+        let tempCardList = filelist.map((v)=>{return v;});
 
         function dealerPickCard() {
+            if (tempCardList.length < 1) {
+                tempCardList = filelist.map((v)=>{return v;});
+            }
             let dealerCardIndex = parseInt(Math.random()*tempCardList.length);
             let dealerCardName = tempCardList[dealerCardIndex];
             dealerCard.push(tempCardList[dealerCardIndex]);
@@ -63,6 +66,9 @@
         }
 
         function playerPickCard() {
+            if (tempCardList.length < 1) {
+                tempCardList = filelist.map((v)=>{return v;});
+            }
             let cardIndex = parseInt(Math.random()*tempCardList.length);
             let cardName = tempCardList[cardIndex];
             tempCardList.splice(cardIndex, 1);
@@ -73,9 +79,6 @@
 
         function pickCard(){
             if (detector){
-                if (tempCardList.length < 2) {
-                    tempCardList = filelist.map((v)=>{return v;});
-                }
                 return {"userScore" : playerPickCard(), "dealerScore" : dealerPickCard()};
             }
         }
@@ -107,8 +110,8 @@
             if(bust!=undefined){
                 getResult();
                 //document.getElementById("result").innerText += bust;
-            };
-        }
+            }
+}
 
         //-----------------------------------------어느 한쪽이라도 버스티드면 이리로 보냄-----------------------------------------
         function bustedDetector(){
@@ -141,7 +144,7 @@
             }
         }
 
-        var winner = "";
+        let winner = "";
         //-----------------------------------------결과 계산-----------------------------------------
         function getResult(){
             additionalDealer();
